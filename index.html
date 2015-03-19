@@ -41,7 +41,22 @@
 <p>Digital modeling amplifiers already exist, but to many electric guitarists, they often fall short of capturing the unique sound of an overdriven tube amplifier. Our goal was to create an algorithm ableto emulate the cascaded soft clipping present in guitar vacuum tube preamps, given a suitable electric guitar signal encoded in an audio format.</p>
 
 <h3>
-<a id="overall-structure" class="anchor" href="#overall-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overall Structure</h3>
+<a id="design" class="anchor" href="#design" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design</h3>
+
+<h5>
+<a id="individual-gain-stages" class="anchor" href="#individual-gain-stages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Individual Gain Stages</h5>
+
+<p>The algorithm accepts a .MP3 music file of a guitar signal as input. Other music formats supported by MATLAB's audioread function will work as well. The algorithm for each simulated gain stage is based on how a vacuum tube triode gain stage functions as detailed in [1]. It first applies a low pass filter to the input to simulate the low pass filter created by Cf, Rg (see Figure 2), and the vacuum tube’s capacitance, with the -3 dB frequency calculated by the formula: </p>
+
+<p>Next, the algorithm applies a high pass filter to simulate the high pass filter created by Rk and Ck (see figure below), with the -3 dB frequency calculated by the formula:</p>
+
+<p>It then amplifies the signal slightly, soft clips the signal on one side of the waveform, and flips the signal upside down to simulate how a vacuum tube amplifies and clips a signal. The soft clip transfer function is represented by:</p>
+
+<p>for signals greater than the  desired clipping threshold, where x is the input signal and y is the desired clipping threshold between 0 and 1. Parts of the signal that are still greater than 1 after applying this function are set to equal 1.
+The algorithm then centers the waveform by filtering out the DC offset in order to simulate how Co filters out DC offset. The values of Co and Rl are simulated as being large enough to not form a high pass filter with respect to audio frequencies, thus having no effect on our algorithm.</p>
+
+<h5>
+<a id="overall-structure" class="anchor" href="#overall-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overall Structure</h5>
 
 <p>Our simulated guitar vacuum tube preamp has 3 individual tube gain stages in order to emulate the cascading gain stage designs of many modern guitar vacuum tube preamps. Using more than one clipping stage results in duty cycle modulation, which is a shifting of the average DC offset of the waveform based on the input signal strength. This generates mostly odd-order harmonics with some even-order harmonics which increase as input signal gain increases.</p>
 

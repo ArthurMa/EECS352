@@ -49,11 +49,11 @@
 </h5>
 
 <p>The algorithm accepts a .MP3 music file of a guitar signal as input. Other music formats supported by MATLAB's audioread function will work as well. The algorithm for each simulated gain stage is based on how a vacuum tube triode gain stage functions as detailed in [1]. It first applies a low pass filter to the input to simulate the low pass filter created by Cf, Rg (see Figure 2), and the vacuum tube’s capacitance, with the -3 dB frequency calculated by the formula: </p>
-
+<img src = "https://raw.githubusercontent.com/ArthurMa/EECS352/master/Equation-1.png">
 <p>Next, the algorithm applies a high pass filter to simulate the high pass filter created by Rk and Ck (see figure below), with the -3 dB frequency calculated by the formula:</p>
-
+<img src = "https://raw.githubusercontent.com/ArthurMa/EECS352/master/Equation-2.png">
 <p>It then amplifies the signal slightly, soft clips the signal on one side of the waveform, and flips the signal upside down to simulate how a vacuum tube amplifies and clips a signal. The soft clip transfer function is represented by:</p>
-
+<img src = "https://raw.githubusercontent.com/ArthurMa/EECS352/master/Equation-3.png">
 <p>for signals greater than the  desired clipping threshold, where x is the input signal and y is the desired clipping threshold between 0 and 1. Parts of the signal that are still greater than 1 after applying this function are set to equal 1.
 The algorithm then centers the waveform by filtering out the DC offset in order to simulate how Co filters out DC offset. The values of Co and Rl are simulated as being large enough to not form a high pass filter with respect to audio frequencies, thus having no effect on our algorithm.</p>
 

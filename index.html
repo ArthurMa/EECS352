@@ -37,7 +37,7 @@
 <p>Vacuum tube guitar amplifiers are niche musical products which generate millions of dollars in annual sales. Vacuum tubes are an otherwise obsolete technology that is still being used in guitar amplifiers today because many electric guitarists prefer the way they distort and respond to playing dynamics compared to transistor amplifiers. The main reason why tubes sound different when they distort is the way they clip the signal, soft clipping the signal waveform instead of abruptly hard clipping (see figure below). </p>
 
 <p><img src="https://raw.githubusercontent.com/ArthurMa/EECS352/master/figure1.jpg" alt="figure1"></p>
-<p text-align= "center">Figure 1</p>
+<p class = "figure">Figure 1</p>
 <p>Digital modeling amplifiers already exist, but to many electric guitarists, they often fall short of capturing the unique sound of an overdriven tube amplifier. Our goal was to create an algorithm ableto emulate the cascaded soft clipping present in guitar vacuum tube preamps, given a suitable electric guitar signal encoded in an audio format.</p>
 
 <h3>
@@ -55,7 +55,7 @@
 <p><img src = "https://raw.githubusercontent.com/ArthurMa/EECS352/master/Equation-3.png"></p>
 <p>for signals greater than the  desired clipping threshold, where x is the input signal and y is the desired clipping threshold between 0 and 1. Parts of the signal that are still greater than 1 after applying this function are set to equal 1.
 The algorithm then centers the waveform by filtering out the DC offset in order to simulate how Co filters out DC offset. The values of Co and Rl are simulated as being large enough to not form a high pass filter with respect to audio frequencies, thus having no effect on our algorithm.</p>
-<p><img src = "https://raw.githubusercontent.com/ArthurMa/EECS352/master/dianlu.png" style="width:155px;height:190px"></p>
+<p class = "figure"><img src = "https://raw.githubusercontent.com/ArthurMa/EECS352/master/dianlu.png" style="width:155px;height:190px"></p>
 <h5>
 <a id="overall-structure" class="anchor" href="#overall-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Overall Structure</em>
 </h5>
@@ -68,7 +68,7 @@ The algorithm then centers the waveform by filtering out the DC offset in order 
 
 <p>Overall, the signal chain is ordered as such: Gain stage 1 =&gt; (Tone stack if Fender preset chosen) =&gt; Gain stage 2 =&gt; Gain stage 3 =&gt; (Tone stack if Vox or Marshall preset chosen) =&gt; Set of filters to emulate speaker =&gt; Output volume scaling.</p>
 
-<p><img src="https://raw.githubusercontent.com/ArthurMa/EECS352/master/gui.png" alt="gui" style="width:640px;height:352px"></p>
+<p class = "figure"><img src="https://raw.githubusercontent.com/ArthurMa/EECS352/master/gui.png" alt="gui" style="width:640px;height:352px"></p>
 
 <h3>
 <a id="results" class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>

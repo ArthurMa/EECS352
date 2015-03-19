@@ -20,7 +20,6 @@
 
           <h1 id="project_title">Digital Emulation of a Vacuum Tube Guitar Preamp</h1>
           <h2 id="project_tagline">Final Project for EECS 352 at Northwestern University</h2>
-          <span style="color:white">Paper: </span><a id="paperDown" href="https://github.com/ArthurMa/EECS352/blob/master/Extended%20Abstract.pdf">Download PDF</a>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/ArthurMa/EECS352/zipball/master">Download this project as a .zip file</a>
@@ -52,10 +51,14 @@
 
 <p>Overall, the signal chain is ordered as such: Gain stage 1 =&gt; (Tone stack if Fender preset chosen) =&gt; Gain stage 2 =&gt; Gain stage 3 =&gt; (Tone stack if Vox or Marshall preset chosen) =&gt; Set of filters to emulate speaker =&gt; Output volume scaling.</p>
 
-<p><img src="https://raw.githubusercontent.com/ArthurMa/EECS352/master/gui.png" alt="gui" style="width:640px;height=539px"></p>
+<p><img src="https://raw.githubusercontent.com/ArthurMa/EECS352/master/gui.png" alt="gui"></p>
 
 <h3>
 <a id="results" class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
+
+<p>To test the accuracy of our entire system, we used Jensen Loudspeakers’ sound sample files collection, located at: <a href="http://www.jensentone.com/sound_sample_files">http://www.jensentone.com/sound_sample_files</a>. The collection contains the same electric guitar passage played through a vacuum tube amplifier set clean and then overdriven, all through a variety of different speakers. This allows us to process the clean version of the passage through our algorithm and compare the output to the overdriven version., which we treated as our ground truth. </p>
+
+<p>For testing purposes, we decided to use Mel Frequency Cepstral Coefficients (MFCC) to measure the difference between our processed sound sample and the overdriven sample. To do this, we used the Rastamat package for Matlab provided at <a href="http://labrosa.ee.columbia.edu/matlab/rastamat/">http://labrosa.ee.columbia.edu/matlab/rastamat/</a> to generate MFCC plots of our processed sample and the overdriven sample; then, since the plots can be represented as matrices, we subtracted one plot from the other and took the absolute value of the result. To minimize the resulting value, we used the patternsearch function in Matlab, a type of hill-climbing algorithm. Given the range of values each setting can achieve in our GUI as a constraint, the minimum value for our algorithm was approximately 116,000; however, when these constraints were lifted, the global minimum became approximately 75,000. For comparison's sake, we repeated this process for a version of the clean sample processed through the Nick Crow Lab: Tube Driver VST mentioned in section 2 and received a value of approximately 100,000, given the settings the VST can achieve as a constraint. Thus, our algorithm achieves comparable performance to existing VST algorithms and can outperform them if there are no constraints on the arguments passed to our algorithm; however, we did not allow our GUI to pass such arguments, because the values taken would have been impractical due to their sheer maginitude. </p>
 
 <h3>
 <a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h3>

@@ -272,7 +272,8 @@ Full-Width Styles
 }
 
 .figure {
-  padding-left: 100 px;
+  position: relative;
+  padding-left: 20 em;
 }
 
 #forkme_banner {

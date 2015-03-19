@@ -36,18 +36,20 @@
 
 <p>Vacuum tube guitar amplifiers are niche musical products which generate millions of dollars in annual sales. Vacuum tubes are an otherwise obsolete technology that is still being used in guitar amplifiers today because many electric guitarists prefer the way they distort and respond to playing dynamics compared to transistor amplifiers. The main reason why tubes sound different when they distort is the way they clip the signal, soft clipping the signal waveform instead of abruptly hard clipping (see figure below). </p>
 
-<p><img src="https://raw.githubusercontent.com/ArthurMa/EECS352/master/figure1.jpg" alt="figure1">
-Digital modeling amplifiers already exist, but to many electric guitarists, they often fall short of capturing the unique sound of an overdriven tube amplifier. Our goal was to create an algorithm ableto emulate the cascaded soft clipping present in guitar vacuum tube preamps, given a suitable electric guitar signal encoded in an audio format.</p>
+<p><img src="https://raw.githubusercontent.com/ArthurMa/EECS352/master/figure1.jpg" alt="figure1"></p>
+
+<p>Digital modeling amplifiers already exist, but to many electric guitarists, they often fall short of capturing the unique sound of an overdriven tube amplifier. Our goal was to create an algorithm ableto emulate the cascaded soft clipping present in guitar vacuum tube preamps, given a suitable electric guitar signal encoded in an audio format.</p>
 
 <h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a id="overall-structure" class="anchor" href="#overall-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overall Structure</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>Our simulated guitar vacuum tube preamp has 3 individual tube gain stages in order to emulate the cascading gain stage designs of many modern guitar vacuum tube preamps. Using more than one clipping stage results in duty cycle modulation, which is a shifting of the average DC offset of the waveform based on the input signal strength. This generates mostly odd-order harmonics with some even-order harmonics which increase as input signal gain increases.</p>
 
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>The Graphical User Interface (GUI) for our algorithm is based on those of VST plug-ins for Audacity as mentioned in the previous section. Each gain stage has an individual gain knob (see Figure 3), and there are treble, mid, and bass knobs in the EQ section to simulate the tone stack, which is the equivalent of a passive EQ section in a guitar amplifier. The simulated tone stacks are based off of those given by the stock values in the Duncan Tone Stack Calculator, downloadable at the following web page: <a href="http://www.duncanamps.com/tsc/">http://www.duncanamps.com/tsc/</a></p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>There are 3 different EQ voicings available, which shift the frequency responses of the filters in the EQ section. If the Fender voicing is chosen, the tone stack is moved in between stages 1 and 2, while if the Vox or Marshall voicings are chosen, the tone stack is moved to immediately after stage 3. There are also 8 presets that simulate the frequency responses of different types of speakers available from Jensen Loudspeakers, specifically: the Mod 6-15, the P8R, the C8R, the P10R, the C10R, the Blackbird 12, the P12N, and the C12N. At the very end of the signal chain, we scale the signal so that the maximum of the absolute value of the signal vector is 1, then multiply the signal by a value between 0 and 1 that is determined by where the output volume control is set in the GUI.</p>
+
+<p>Overall, the signal chain is ordered as such: Gain stage 1 =&gt; (Tone stack if Fender preset chosen) =&gt; Gain stage 2 =&gt; Gain stage 3 =&gt; (Tone stack if Vox or Marshall preset chosen) =&gt; Set of filters to emulate speaker =&gt; Output volume scaling.</p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>

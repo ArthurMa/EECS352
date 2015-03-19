@@ -97,6 +97,10 @@ p {
   margin: 10px 0 15px 0;
 }
 
+.figure {
+  padding-left: 15 em;
+}
+
 footer p {
   color: #f2f2f2;
 }
